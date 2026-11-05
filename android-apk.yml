@@ -1,0 +1,34 @@
+name: Build TIGER X Android APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Generate Android platform files
+        working-directory: app
+        run: flutter create . --platforms=android --org com.tigerx --project-name tiger_x
+      - name: Get packages
+        working-directory: app
+        run: flutter pub get
+      - name: Build release APK
+        working-directory: app
+        run: flutter build apk --release
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TIGER-X-Android-APK
+          path: app/build/app/outputs/flutter-apk/app-release.apk
