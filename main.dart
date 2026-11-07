@@ -47,7 +47,7 @@ class _TigerHomeState extends State<TigerHome> {
   bool listening = false, busy = false;
 
   // Backend deploy hone ke baad yahan apna HTTPS URL daalein.
-  final String backendUrl = 'https://YOUR-BACKEND-URL';
+  final String backendUrl = https://tiger-x.onrender.com
 
   String get locale => language == 'English' ? 'en-US' : language == 'Odia' ? 'or-IN' : 'hi-IN';
 
